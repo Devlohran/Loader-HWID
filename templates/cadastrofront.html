@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+</head>
+<body>
+    <h1>Cadastro de Usuário</h1>
+    <form id="formCadastro">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <label for="chave">Chave:</label>
+        <input type="text" id="chave" name="chave" required><br><br>
+
+        <!-- Adicione o campo oculto para o token CSRF -->
+        <input type="hidden" id="csrf_token" name="csrf_token" value="{{ csrf_token }}"><br><br>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <div id="mensagem"></div>
+
+    <script>
+        document.getElementById('formCadastro').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var nome = document.getElementById('nome').value;
+            var chave = document.getElementById('chave').value;
+            var csrfToken = document.getElementById('csrf_token').value; // Recupere o token CSRF
+
+            fetch('/cadastrar_usuario', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken // Inclua o token CSRF nos cabeçalhos da solicitação
+                },
+                body: JSON.stringify({
+                    nome: nome,
+                    chave: chave
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('mensagem').innerHTML = '<p style="color: green;">' + data.message + '</p>';
+                } else {
+                    document.getElementById('mensagem').innerHTML = '<p style="color: red;">Erro: ' + data.error + '</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao cadastrar usuário:', error);
+                document.getElementById('mensagem').innerHTML = '<p style="color: red;">Erro ao cadastrar usuário. Por favor, tente novamente mais tarde.</p>';
+            });
+        });
+    </script>
+</body>
+</html>
