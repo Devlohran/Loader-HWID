@@ -30,4 +30,4 @@ Este projeto consiste em um banco de dados, página de cadastro e loader HWID pa
 
 ## Notas
 
-Este projeto é uma solução inicial e pode exigir personalização adicional para atender às suas necessidades específicas de segurança e funcionalidade. Provavelmente você vai ter que mudar a função 'conectar_bd' nos scripts quando você colocar em servidor. Também será necessário mudar o cadastroback.py, pois ele está configurado para ser executado localmente.
+Este projeto é uma solução inicial e pode exigir personalização adicional para atender às suas necessidades específicas de segurança e funcionalidade. Provavelmente você vai ter que mudar a função 'conectar_bd' nos scripts quando você colocar em servidor. Também será necessário mudar o cadastroback.py, pois ele está configurado para ser executado localmente. Voce tambem pode criar um loader com outra linguagem, aproveitando o sistema de gerenciamento de key e o banco de dados seguindo o exemplo do loader que eu fiz.
